@@ -15,9 +15,9 @@ authors = [
 ]
 requires-python = "~=3.12.3"
 dependencies = [
-    "boto3",
-    "linz-logger",
-    "python-ulid",
+    "boto3>=1.43.8",
+    "linz-logger>=0.11.0",
+    "python-ulid>=1.1.0",
     "shapely>=2.0",
     "topo-imagery-common",
     "topo-imagery-gdal",
@@ -25,18 +25,18 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "black",
-    "gitlint",
-    "isort",
+    "black>=26.3.1",
+    "gitlint>=0.19.1",
+    "isort>=8.0.1",
     "moto>=4.2",
-    "mypy",
-    "mypy-boto3-s3",
-    "pre-commit",
-    "pylint",
-    "pytest",
-    "pytest-dependency",
-    "pytest-subtests",
-    "shellcheck-py",
+    "mypy>=2.1.0",
+    "mypy-boto3-s3>=1.43.5",
+    "pre-commit>=4.6.0",
+    "pylint>=4.0.5",
+    "pytest>=9.0.3",
+    "pytest-dependency>=0.6.1",
+    "pytest-subtests>=0.15.0",
+    "shellcheck-py>=0.11.0.1",
 ]
 
 [tool.black]

@@ -8,17 +8,17 @@ version = "0.1.0"
 description = "GDAL and raster utilities for topo-imagery processing"
 requires-python = "~=3.12.3"
 dependencies = [
-    "linz-logger",
+    "linz-logger>=0.11.0",
     "shapely>=2.0",
-    "tifffile",
+    "tifffile>=2026.5.2",
     "topo-imagery-common",
 ]
 
 [dependency-groups]
 dev = [
-    "pytest",
-    "pytest-dependency",
-    "pytest-subtests",
+    "pytest>=9.0.3",
+    "pytest-dependency>=0.6.1",
+    "pytest-subtests>=0.15.0",
 ]
 
 [tool.pytest.ini_options]

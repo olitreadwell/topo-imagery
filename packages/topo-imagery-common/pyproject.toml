@@ -8,20 +8,20 @@ version = "0.1.0"
 description = "Shared utilities for topo-imagery processing"
 requires-python = "~=3.12.3"
 dependencies = [
-    "boto3",
-    "linz-logger",
-    "py-multihash",
-    "python-dateutil",
+    "boto3>=1.43.8",
+    "linz-logger>=0.11.0",
+    "py-multihash>=3.0.0",
+    "python-dateutil>=2.9.0",
     "shapely>=2.0",
 ]
 
 [dependency-groups]
 dev = [
     "moto>=4.2",
-    "mypy-boto3-s3",
-    "pytest",
-    "pytest-dependency",
-    "pytest-subtests",
+    "mypy-boto3-s3>=1.43.5",
+    "pytest>=9.0.3",
+    "pytest-dependency>=0.6.1",
+    "pytest-subtests>=0.15.0",
 ]
 
 [tool.uv]
