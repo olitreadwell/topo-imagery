@@ -16,6 +16,11 @@ GRID_SIZE_MAX = 50_000
 CHAR_A = charcodeat("A", 0)
 CHAR_S = charcodeat("S", 0)
 
+MAINLAND_EPSG = 2193
+""" EPSG code of the mainland NZTM50 mapsheet grid (NZGD2000 / New Zealand Transverse Mercator 2000) """
+CHATHAM_EPSG = 3793
+""" EPSG code of the Chatham Islands mapsheet grid (NZGD2000 / Chatham Islands TM 2000) """
+
 
 class Point(NamedTuple):
     """Class that represents a point(x,y)"""
@@ -34,18 +39,66 @@ class Bounds(NamedTuple):
     size: Size
 
 
-def get_bounds_from_name(tile_name: str) -> Bounds:
+# The six Chatham Islands Topo50 mapsheets (EPSG:3793, NZGD2000 / Chatham Islands TM 2000), laid
+# out on the same 24,000m x 36,000m 1:50k grid as the mainland sheets, just with a different origin
+# and (small, fixed) set of sheet codes. Unlike the mainland grid, this is a small enough set of
+# sheets that a static lookup table transcribed from the authoritative shapefile is simpler and
+# less bug-prone than deriving a formula.
+#
+# Values transcribed from (and can be regenerated with `ogrinfo -al` against):
+# https://data.linz.govt.nz/layer/50089-nz-chatham-island-linz-map-sheets-topo-150k/
+CHATHAM_SHEET_ORIGINS: dict[str, Point] = {
+    "CI01": Point(x=3_458_000, y=5_176_000),  # Point Somes
+    "CI02": Point(x=3_482_000, y=5_176_000),  # Cape Young
+    "CI03": Point(x=3_506_000, y=5_176_000),  # Kaingaroa
+    "CI04": Point(x=3_482_000, y=5_140_000),  # Waitangi
+    "CI05": Point(x=3_506_000, y=5_140_000),  # Owenga
+    "CI06": Point(x=3_506_000, y=5_104_000),  # Pitt Island (Rangiauria)
+}
+
+
+def get_chatham_mapsheet_offset(sheet_code: str) -> Point:
+    """Look up the origin point for a Chatham Islands mapsheet code.
+
+    Args:
+        sheet_code: Chatham Islands topo 50 map sheet code eg "CI06"
+
+    Returns:
+        Point: The top left point of the mapsheet, in EPSG:3793
+
+    Example:
+        >>> get_chatham_mapsheet_offset("CI06")
+        Point(x=3506000, y=5104000)
+    """
+    origin = CHATHAM_SHEET_ORIGINS.get(sheet_code[:4])
+    if origin is None:
+        raise ValueError(f"Unknown Chatham Islands map sheet: {sheet_code}; known sheets: {sorted(CHATHAM_SHEET_ORIGINS)}")
+    return origin
+
+
+def get_bounds_from_name(tile_name: str, target_epsg: int = MAINLAND_EPSG) -> Bounds:
     """Get the origin coordinates and size of the tile from its name.
 
     Args:
         tile_name: the tile name as `sheetCode_gridSize_tileId`
+        target_epsg: EPSG code of the mapsheet grid the tile is named against; only
+            `MAINLAND_EPSG` (2193) and `CHATHAM_EPSG` (3793) are supported
 
     Returns:
         a `Bounds` object
     """
+    if target_epsg == CHATHAM_EPSG:
+        get_offset = get_chatham_mapsheet_offset
+    elif target_epsg == MAINLAND_EPSG:
+        get_offset = get_mapsheet_offset
+    else:
+        raise ValueError(
+            f"Unsupported target EPSG:{target_epsg} for mapsheet lookup; supported: {MAINLAND_EPSG}, {CHATHAM_EPSG}"
+        )
+
     # check for 50k imagery
     if re.match(r"^[A-Z]{2}\d{2}$", tile_name):
-        origin = get_mapsheet_offset(tile_name)
+        origin = get_offset(tile_name)
         return Bounds(
             Point(x=origin.x, y=origin.y),
             Size(SHEET_WIDTH, SHEET_HEIGHT),
@@ -62,7 +115,7 @@ def get_bounds_from_name(tile_name: str) -> Bounds:
         x = int(name_parts[2][-3:])
         y = int(name_parts[2][:3])
 
-    origin = get_mapsheet_offset(map_sheet)
+    origin = get_offset(map_sheet)
     tile_offset = get_tile_offset(grid_size=grid_size, x=x, y=y)
     return Bounds(
         Point(x=origin.x + tile_offset.point.x, y=origin.y - tile_offset.point.y),

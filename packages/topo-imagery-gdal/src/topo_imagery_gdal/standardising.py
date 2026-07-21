@@ -324,7 +324,7 @@ def apply_gdal_transformation(input_file: str, config: StandardisingConfig, tmp_
     command.extend(get_gdal_band_offset(input_file, gdal_info(input_file), config.gdal_preset))
 
     # Specify the extent to get the right boundaries in case of the tiff got no data on its edges
-    output_bounds: Bounds = get_bounds_from_name(tile_name)
+    output_bounds: Bounds = get_bounds_from_name(tile_name, target_epsg=config.target_epsg)
     min_x = output_bounds.point.x
     max_y = output_bounds.point.y
     min_y = max_y - output_bounds.size.height
