@@ -17,9 +17,9 @@ CHAR_A = charcodeat("A", 0)
 CHAR_S = charcodeat("S", 0)
 
 MAINLAND_EPSG = 2193
-""" EPSG code of the mainland NZTM50 mapsheet grid (NZGD2000 / New Zealand Transverse Mercator 2000) """
+""" EPSG code of the mainland NZTM50 mapsheet grid (NZGD2000 / NZTM2000) """
 CHATHAM_EPSG = 3793
-""" EPSG code of the Chatham Islands mapsheet grid (NZGD2000 / Chatham Islands TM 2000) """
+""" EPSG code of the Chatham Islands mapsheet grid (NZGD2000 / CITM2000) """
 
 
 class Point(NamedTuple):
@@ -40,12 +40,19 @@ class Bounds(NamedTuple):
 
 
 # The six Chatham Islands Topo50 mapsheets (EPSG:3793, NZGD2000 / Chatham Islands TM 2000), laid
-# out on the same 24,000m x 36,000m 1:50k grid as the mainland sheets, just with a different origin
-# and (small, fixed) set of sheet codes. Unlike the mainland grid, this is a small enough set of
-# sheets that a static lookup table transcribed from the authoritative shapefile is simpler and
-# less bug-prone than deriving a formula.
-#
-# Values transcribed from (and can be regenerated with `ogrinfo -al` against):
+# out on the same 24,000m x 36,000m 1:50k grid as the mainland sheets, with a different origin
+# and layout of sheet codes. The following sheet codes are used:
+# +------+------+------+
+# | CI01 | CI02 | CI03 |
+# |      |      |      |
+# +------+------+------+
+#        | CI04 | CI05 |
+#        |      |      |
+#        +------+------+
+#               | CI06 |
+#               |      |
+#               +------+
+# Reference:
 # https://data.linz.govt.nz/layer/50089-nz-chatham-island-linz-map-sheets-topo-150k/
 CHATHAM_SHEET_ORIGINS: dict[str, Point] = {
     "CI01": Point(x=3_458_000, y=5_176_000),  # Point Somes
