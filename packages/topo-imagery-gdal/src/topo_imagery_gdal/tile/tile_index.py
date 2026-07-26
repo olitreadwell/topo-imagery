@@ -1,6 +1,7 @@
 import re
 from typing import NamedTuple
 
+from topo_imagery_common.epsg import EpsgNumber
 from topo_imagery_gdal.tile.util import charcodeat
 
 SHEET_WIDTH = 24_000
@@ -16,9 +17,9 @@ GRID_SIZE_MAX = 50_000
 CHAR_A = charcodeat("A", 0)
 CHAR_S = charcodeat("S", 0)
 
-MAINLAND_EPSG = 2193
+MAINLAND_EPSG = EpsgNumber.NZTM_2000
 """ EPSG code of the mainland NZTM50 mapsheet grid (NZGD2000 / NZTM2000) """
-CHATHAM_EPSG = 3793
+CHATHAM_EPSG = EpsgNumber.CITM_2000
 """ EPSG code of the Chatham Islands mapsheet grid (NZGD2000 / CITM2000) """
 
 
@@ -63,41 +64,21 @@ CHATHAM_SHEET_ORIGINS: dict[str, Point] = {
     "CI06": Point(x=3_506_000, y=5_104_000),  # Pitt Island (Rangiauria)
 }
 
-
-def get_chatham_mapsheet_offset(sheet_code: str) -> Point:
-    """Look up the origin point for a Chatham Islands mapsheet code.
-
-    Args:
-        sheet_code: Chatham Islands topo 50 map sheet code eg "CI06"
-
-    Returns:
-        Point: The top left point of the mapsheet, in EPSG:3793
-
-    Example:
-        >>> get_chatham_mapsheet_offset("CI06")
-        Point(x=3506000, y=5104000)
-    """
-    origin = CHATHAM_SHEET_ORIGINS.get(sheet_code[:4])
-    if origin is None:
-        raise ValueError(f"Unknown Chatham Islands map sheet: {sheet_code}; known sheets: {sorted(CHATHAM_SHEET_ORIGINS)}")
-    return origin
-
-
 def get_bounds_from_name(tile_name: str, target_epsg: int = MAINLAND_EPSG) -> Bounds:
     """Get the origin coordinates and size of the tile from its name.
 
     Args:
         tile_name: the tile name as `sheetCode_gridSize_tileId`
-        target_epsg: EPSG code of the mapsheet grid the tile is named against; only
+        target_epsg: EPSG code of the mapsheet grid for the tile.
             `MAINLAND_EPSG` (2193) and `CHATHAM_EPSG` (3793) are supported
 
     Returns:
         a `Bounds` object
     """
-    if target_epsg == CHATHAM_EPSG:
-        get_offset = get_chatham_mapsheet_offset
-    elif target_epsg == MAINLAND_EPSG:
+    if target_epsg == MAINLAND_EPSG:
         get_offset = get_mapsheet_offset
+    elif target_epsg == CHATHAM_EPSG:
+        get_offset = get_chatham_mapsheet_offset
     else:
         raise ValueError(
             f"Unsupported target EPSG:{target_epsg} for mapsheet lookup; supported: {MAINLAND_EPSG}, {CHATHAM_EPSG}"
@@ -167,6 +148,26 @@ def get_mapsheet_offset(sheet_code: str) -> Point:
         y -= 1
 
     return Point(x=SHEET_WIDTH * x + SHEET_ORIGIN_LEFT, y=SHEET_ORIGIN_TOP - SHEET_HEIGHT * y)
+
+
+def get_chatham_mapsheet_offset(sheet_code: str) -> Point:
+    """Look up the origin point for a Chatham Islands mapsheet code.
+
+    Args:
+        sheet_code: Chatham Islands topo 50 map sheet code eg "CI06"
+
+    Returns:
+        Point: The top left point of the mapsheet, in EPSG:3793
+
+    Example:
+        >>> get_chatham_mapsheet_offset("CI06")
+        Point(x=3506000, y=5104000)
+    """
+    origin = CHATHAM_SHEET_ORIGINS.get(sheet_code[:4])
+    if origin is None:
+        raise ValueError(f"Unknown Chatham Islands map sheet: {sheet_code}. Known sheets: {sorted(CHATHAM_SHEET_ORIGINS)}")
+    return origin
+
 
 
 def get_tile_offset(grid_size: int, x: int, y: int) -> Bounds:

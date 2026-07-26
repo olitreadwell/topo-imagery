@@ -1,6 +1,6 @@
 from typing import Any
 
-# Values transcribed from https://data.linz.govt.nz/layer/50089-nz-chatham-island-linz-map-sheets-topo-150k/
+# Values source: https://data.linz.govt.nz/layer/50089-nz-chatham-island-linz-map-sheets-topo-150k/
 CHATHAM_SHEET_DATA: list[dict[Any, Any]] = [
     {"origin": {"x": 3458000, "y": 5176000}, "code": "CI01"},
     {"origin": {"x": 3482000, "y": 5176000}, "code": "CI02"},

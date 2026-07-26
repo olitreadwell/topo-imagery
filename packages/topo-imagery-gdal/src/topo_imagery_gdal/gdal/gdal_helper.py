@@ -1,7 +1,6 @@
 import json
 import os
 import subprocess
-from enum import Enum
 from shutil import rmtree
 from tempfile import mkdtemp
 from typing import cast
@@ -10,19 +9,13 @@ from linz_logger import get_log
 from topo_imagery_common.aws.aws_helper import is_s3
 from topo_imagery_common.files.files_helper import get_file_name_from_path
 from topo_imagery_common.files.fs import copy
+from topo_imagery_common.epsg import EpsgNumber
 from topo_imagery_common.log.time_helper import time_in_ms
 from topo_imagery_gdal.gdal.gdalinfo import GdalInfo
 
 
 class GDALExecutionException(Exception):
     pass
-
-
-class EpsgNumber(int, Enum):
-    NZTM_2000 = 2193
-    """New Zealand Transverse Mercator 2000"""
-    WGS_1984 = 4326
-    """World Geodetic System 1984"""
 
 
 def get_vfs_path(path: str) -> str:
