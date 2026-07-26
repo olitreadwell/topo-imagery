@@ -17,11 +17,6 @@ GRID_SIZE_MAX = 50_000
 CHAR_A = charcodeat("A", 0)
 CHAR_S = charcodeat("S", 0)
 
-MAINLAND_EPSG = EpsgNumber.NZTM_2000
-""" EPSG code of the mainland NZTM50 mapsheet grid (NZGD2000 / NZTM2000) """
-CHATHAM_EPSG = EpsgNumber.CITM_2000
-""" EPSG code of the Chatham Islands mapsheet grid (NZGD2000 / CITM2000) """
-
 
 class Point(NamedTuple):
     """Class that represents a point(x,y)"""
@@ -64,24 +59,25 @@ CHATHAM_SHEET_ORIGINS: dict[str, Point] = {
     "CI06": Point(x=3_506_000, y=5_104_000),  # Pitt Island (Rangiauria)
 }
 
-def get_bounds_from_name(tile_name: str, target_epsg: int = MAINLAND_EPSG) -> Bounds:
+def get_bounds_from_name(tile_name: str, target_epsg: int = EpsgNumber.NZTM_2000) -> Bounds:
     """Get the origin coordinates and size of the tile from its name.
 
     Args:
         tile_name: the tile name as `sheetCode_gridSize_tileId`
         target_epsg: EPSG code of the mapsheet grid for the tile.
-            `MAINLAND_EPSG` (2193) and `CHATHAM_EPSG` (3793) are supported
+            `EpsgNumber.NZTM_2000` (2193) and `EpsgNumber.CITM_2000` (3793) are supported
 
     Returns:
         a `Bounds` object
     """
-    if target_epsg == MAINLAND_EPSG:
+    if target_epsg == EpsgNumber.NZTM_2000:
         get_offset = get_mapsheet_offset
-    elif target_epsg == CHATHAM_EPSG:
+    elif target_epsg == EpsgNumber.CITM_2000:
         get_offset = get_chatham_mapsheet_offset
     else:
         raise ValueError(
-            f"Unsupported target EPSG:{target_epsg} for mapsheet lookup; supported: {MAINLAND_EPSG}, {CHATHAM_EPSG}"
+            f"Unsupported target EPSG:{target_epsg} for mapsheet lookup. "
+            f"Supported: {EpsgNumber.NZTM_2000.value}, {EpsgNumber.CITM_2000.value}"
         )
 
     # check for 50k imagery
@@ -167,7 +163,6 @@ def get_chatham_mapsheet_offset(sheet_code: str) -> Point:
     if origin is None:
         raise ValueError(f"Unknown Chatham Islands map sheet: {sheet_code}. Known sheets: {sorted(CHATHAM_SHEET_ORIGINS)}")
     return origin
-
 
 
 def get_tile_offset(grid_size: int, x: int, y: int) -> Bounds:

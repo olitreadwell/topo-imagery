@@ -1,9 +1,8 @@
 import pytest
 from pytest_subtests import SubTests
 from tile_index_data import CHATHAM_SHEET_DATA, MAP_SHEET_DATA
+from topo_imagery_common.epsg import EpsgNumber
 from topo_imagery_gdal.tile.tile_index import (
-    CHATHAM_EPSG,
-    MAINLAND_EPSG,
     Bounds,
     Point,
     Size,
@@ -32,12 +31,12 @@ def test_get_bounds_from_name_chatham() -> None:
     # tile's real EPSG:3793 location, causing gdal_translate to fail with
     # "Failed to compute statistics, no valid pixels found in sampling".
     expected_bounds = Bounds(Point(x=3518000, y=5086000), Size(width=2400, height=3600))
-    bounds = get_bounds_from_name("CI06_5000_0606", target_epsg=CHATHAM_EPSG)
+    bounds = get_bounds_from_name("CI06_5000_0606", target_epsg=EpsgNumber.CITM_2000)
     assert expected_bounds == bounds
 
 
 def test_get_bounds_from_name_defaults_to_mainland() -> None:
-    assert get_bounds_from_name("CK08") == get_bounds_from_name("CK08", target_epsg=MAINLAND_EPSG)
+    assert get_bounds_from_name("CK08") == get_bounds_from_name("CK08", target_epsg=EpsgNumber.NZTM_2000)
 
 
 def test_get_bounds_from_name_unsupported_epsg() -> None:
