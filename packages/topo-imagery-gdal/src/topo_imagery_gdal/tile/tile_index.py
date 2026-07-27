@@ -59,6 +59,7 @@ CHATHAM_SHEET_ORIGINS: dict[str, Point] = {
     "CI06": Point(x=3_506_000, y=5_104_000),  # Pitt Island (Rangiauria)
 }
 
+
 def get_bounds_from_name(tile_name: str, target_epsg: int = EpsgNumber.NZTM_2000) -> Bounds:
     """Get the origin coordinates and size of the tile from its name.
 

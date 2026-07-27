@@ -26,8 +26,8 @@ def test_get_bounds_from_50k_name() -> None:
 
 
 def test_get_bounds_from_name_chatham() -> None:
-    # Regression test for the real failing tile: mainland arithmetic previously produced
-    # EXTENT=1144000.0,4772400.0,1146400.0,4776000.0 for this tile, which doesn't overlap the
+    # Regression test for failing tile: mainland arithmetic previously produced
+    # EXTENT=1144000.0,4772400.0,1146400.0,4776000.0 for this tile, not the
     # tile's real EPSG:3793 location, causing gdal_translate to fail with
     # "Failed to compute statistics, no valid pixels found in sampling".
     expected_bounds = Bounds(Point(x=3518000, y=5086000), Size(width=2400, height=3600))
