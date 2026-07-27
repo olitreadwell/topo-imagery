@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import IntEnum
 
 
-class EpsgNumber(int, Enum):
+class EpsgNumber(IntEnum):
     NZTM_2000 = 2193
     """New Zealand Transverse Mercator 2000"""
     WGS_1984 = 4326
