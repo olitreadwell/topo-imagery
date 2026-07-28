@@ -274,7 +274,7 @@ def get_footprint_command(gsd: Decimal, preset: str) -> list[str]:
     gdal_footprint_command: list[str] = [
         "gdal_footprint",
         "-t_srs",
-        f"EPSG:{EpsgNumber.WGS_1984.value}",
+        f"EPSG:{EpsgNumber.WGS_1984}",
         "-max_points",
         "unlimited",
         "-lco",

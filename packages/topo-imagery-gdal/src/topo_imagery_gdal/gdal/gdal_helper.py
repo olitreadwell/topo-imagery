@@ -108,7 +108,7 @@ def get_srs() -> bytes:
     Returns:
         the output of `gdalsrsinfo`
     """
-    gdalsrsinfo_command = ["gdalsrsinfo", "-o", "wkt", f"EPSG:{EpsgNumber.NZTM_2000.value}"]
+    gdalsrsinfo_command = ["gdalsrsinfo", "-o", "wkt", f"EPSG:{EpsgNumber.NZTM_2000}"]
     gdalsrsinfo_result = run_gdal(gdalsrsinfo_command)
     if gdalsrsinfo_result.stderr:
         raise Exception(

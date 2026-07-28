@@ -54,7 +54,7 @@ def get_pdal_command(command: str, options: list[str]) -> list[str]:
 pdal_translate_add_proj_command = get_pdal_command(
     "translate",
     [
-        f"--readers.las.spatialreference=EPSG:{EpsgNumber.NZTM_2000.value}+{EpsgNumber.NZVD_2016.value}",
+        f"--readers.las.spatialreference=EPSG:{EpsgNumber.NZTM_2000}+{EpsgNumber.NZVD_2016}",
         "--writers.las.filesource_id=0",
         "--writers.las.forward=all",
     ],

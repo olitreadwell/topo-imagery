@@ -78,7 +78,7 @@ def get_bounds_from_name(tile_name: str, target_epsg: int = EpsgNumber.NZTM_2000
     else:
         raise ValueError(
             f"Unsupported target EPSG:{target_epsg} for mapsheet lookup. "
-            f"Supported: {EpsgNumber.NZTM_2000.value}, {EpsgNumber.CITM_2000.value}"
+            f"Supported: {EpsgNumber.NZTM_2000}, {EpsgNumber.CITM_2000}"
         )
 
     # check for 50k imagery
