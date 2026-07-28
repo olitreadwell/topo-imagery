@@ -17,10 +17,10 @@ requires-python = "~=3.12.3"
 dependencies = [
     "boto3",
     "linz-logger",
-    "python-ulid",
     "shapely>=2.0",
     "topo-imagery-common",
     "topo-imagery-gdal",
+    "topo-imagery-stac",
 ]
 
 [dependency-groups]
@@ -49,6 +49,7 @@ default-groups = "all"
 [tool.uv.sources]
 topo-imagery-common = { workspace = true }
 topo-imagery-gdal = { workspace = true }
+topo-imagery-stac = { workspace = true }
 
 [tool.uv.workspace]
 members = ["packages/*"]
@@ -62,6 +63,7 @@ profile = "black"
 show_error_codes = true
 strict = true
 disable_error_code = ["import"]
+exclude = ["conftest\\.py$"]
 
 [[tool.mypy.overrides]]
 module = ["linz_logger"]
