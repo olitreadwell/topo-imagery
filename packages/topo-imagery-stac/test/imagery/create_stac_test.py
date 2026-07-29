@@ -25,7 +25,7 @@ def test_create_item(subtests: SubTests) -> None:
     )
     current_datetime = any_epoch_datetime_string()
     item = create_item(
-        "./scripts/tests/data/empty.tiff",
+        "./test/data/empty.tiff",
         "",
         "",
         "abc123",
@@ -50,8 +50,8 @@ def test_create_item(subtests: SubTests) -> None:
 def test_create_item_when_resupplying(subtests: SubTests, tmp_path: Path) -> None:
     item_name = "empty"
     existing_item = tmp_path / f"{item_name}.json"
-    tiff_path = f"./scripts/tests/data/{item_name}.tiff"
-    derived_from_path = "./scripts/tests/data/fake_item.json"
+    tiff_path = f"./test/data/{item_name}.tiff"
+    derived_from_path = "./test/data/fake_item.json"
     created_datetime = "created datetime"
     updated_datetime = "updated datetime"
     links = [
@@ -121,7 +121,7 @@ def test_create_item_when_resupplying(subtests: SubTests, tmp_path: Path) -> Non
 def test_create_item_when_resupplying_with_changed_file(subtests: SubTests, tmp_path: Path) -> None:
     item_name = "empty"
     original_item = tmp_path / f"{item_name}.json"
-    asset_file = f"./scripts/tests/data/{item_name}.tiff"
+    asset_file = f"./test/data/{item_name}.tiff"
     created_datetime = "created datetime"
     updated_datetime = "updated datetime"
     original_item_content = {
@@ -143,7 +143,7 @@ def test_create_item_when_resupplying_with_changed_file(subtests: SubTests, tmp_
 
     current_datetime = "current datetime"
     item = create_item(
-        "./scripts/tests/data/empty.tiff",
+        "./test/data/empty.tiff",
         "",
         "",
         "abc123",
@@ -173,7 +173,7 @@ def test_create_item_with_derived_from(tmp_path: Path) -> None:
     )
 
     item = create_item(
-        "./scripts/tests/data/empty.tiff",
+        "./test/data/empty.tiff",
         "",
         "",
         "abc123",
@@ -211,7 +211,7 @@ def test_create_item_with_derived_from_datetimes(tmp_path: Path) -> None:
     )
 
     item = create_item(
-        "./scripts/tests/data/empty.tiff",
+        "./test/data/empty.tiff",
         "",
         "",
         "abc123",
@@ -561,7 +561,7 @@ def test_create_collection_new_keep_desc_title(fake_collection_context: Collecti
 def test_create_item_with_odr_url(tmp_path: Path) -> None:
     item_name = "empty"
     existing_item_file = tmp_path / f"{item_name}.json"
-    tiff_path = f"./scripts/tests/data/{item_name}.tiff"
+    tiff_path = f"./test/data/{item_name}.tiff"
 
     fake_gdal_info: GdalInfo = cast(
         GdalInfo, {"wgs84Extent": {"type": "Polygon", "coordinates": [[[0, 1], [1, 1], [1, 0], [0, 0]]]}}
@@ -613,7 +613,7 @@ def test_create_item_when_resupplying_with_new_file(subtests: SubTests, tmp_path
 
     current_datetime = "current datetime"
     item = create_item(
-        "./scripts/tests/data/empty.tiff",
+        "./test/data/empty.tiff",
         "",
         "",
         "abc123",
@@ -633,7 +633,7 @@ def test_create_item_when_resupplying_with_new_file(subtests: SubTests, tmp_path
 def test_create_item_when_resupplying_with_changed_asset_file(subtests: SubTests, tmp_path: Path) -> None:
     item_name = "empty"
     original_item = tmp_path / f"{item_name}.json"
-    asset_file = f"./scripts/tests/data/{item_name}.tiff"
+    asset_file = f"./test/data/{item_name}.tiff"
     created_datetime = "created datetime"
     updated_datetime = "updated datetime"
     original_item_content = {
@@ -655,7 +655,7 @@ def test_create_item_when_resupplying_with_changed_asset_file(subtests: SubTests
 
     current_datetime = "current datetime"
     item = create_item(
-        "./scripts/tests/data/empty.tiff",
+        "./test/data/empty.tiff",
         "",
         "",
         "abc123",

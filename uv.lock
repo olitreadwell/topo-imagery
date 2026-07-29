@@ -894,7 +894,7 @@ wheels = [
 [[package]]
 name = "topo-imagery"
 version = "7.22.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "boto3" },
     { name = "linz-logger" },

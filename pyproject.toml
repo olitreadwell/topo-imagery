@@ -24,6 +24,14 @@ dependencies = [
     "topo-imagery-stac",
 ]
 
+[project.scripts]
+collection-from-items = "scripts.collection_from_items:main"
+fix-laz-header = "scripts.fix_laz_header:main"
+generate-hillshade = "scripts.generate_hillshade:main"
+standardise-validate = "scripts.standardise_validate:main"
+thumbnails = "scripts.thumbnails:main"
+translate-ascii = "scripts.translate_ascii:main"
+
 [dependency-groups]
 dev = [
     "black",
@@ -40,12 +48,19 @@ dev = [
     "shellcheck-py",
 ]
 
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = ["test"]
+
 [tool.black]
 line-length = 127
 
 [tool.uv]
-package = false
+package = true
 default-groups = "all"
+
+[tool.uv.build-backend]
+module-name = "scripts"
 
 [tool.uv.sources]
 topo-imagery-common = { workspace = true }

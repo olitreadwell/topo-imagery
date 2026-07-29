@@ -24,15 +24,16 @@ RUN mkdir /pdal_shared
 RUN cp -nv $( ldd /usr/bin/pdal | awk '{print $3}' ) /pdal_shared/
 
 # Define the working directory for the following commands
-WORKDIR /src
+WORKDIR /build
 
 # Add uv config
-COPY uv.lock pyproject.toml /src/
-COPY ./packages/ /src/packages/
+COPY uv.lock pyproject.toml /build/
+COPY ./packages/ /build/packages/
+COPY ./src/ /build/src/
 
 # Bundle production dependencies into /venv
 ENV UV_PROJECT_ENVIRONMENT=/venv
-RUN uv sync --verbose --frozen --no-dev --no-install-project --no-editable
+RUN uv sync --verbose --frozen --no-dev --no-editable
 
 FROM ghcr.io/osgeo/gdal:ubuntu-small-3.10.3@sha256:dab45abca3ca83695d442018692f4f8a0f41955871c57e6101d7f89a92375caa
 
@@ -50,12 +51,11 @@ COPY --from=builder /venv /venv
 COPY --from=builder /usr/bin/pdal /usr/bin/pdal
 COPY --from=builder /pdal_shared/ /usr/lib/
 
-# Copy Python scripts
-COPY ./scripts/ /app/scripts/
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+COPY test/data/ /app/test/data/
 
-ENV PYTHONPATH="/app"
 ENV GTIFF_SRS_SOURCE="EPSG"
 
-WORKDIR /app/scripts
+WORKDIR /app
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
