@@ -234,12 +234,13 @@ class ImageryCollection:
 
         # determine suffix based on its lifecycle
         lifecycle_suffix = LIFECYCLE_SUFFIXES.get(self.stac["linz:lifecycle"], "") if self.add_title_suffix else None
+        event_name = self.stac.get("linz:event_name")
 
         if category == SCANNED_AERIAL_PHOTOS:
             if not historic_survey_number:
                 raise MissingMetadataError("historic_survey_number")
             components = [
-                geographic_description or region,
+                self._combine_with_event(geographic_description or region, event_name),
                 gsd_str,
                 historic_survey_number,
                 date,
@@ -249,7 +250,7 @@ class ImageryCollection:
         elif category in {*ANY_SATELLITE_IMAGERY, *ANY_ORTHO_AERIAL_PHOTOS}:
             category_title = EVENTS[category]["title"] if is_ancillary_event else DATA_CATEGORIES[category]
             components = [
-                geographic_description or region,
+                self._combine_with_event(geographic_description or region, event_name),
                 gsd_str,
                 category_title,
                 date,
@@ -260,7 +261,7 @@ class ImageryCollection:
             components = [
                 region,
                 "-" if geographic_description else None,
-                geographic_description,
+                self._combine_with_event(geographic_description, event_name),
                 DATA_DOMAINS[self.domain],
                 "LiDAR",
                 gsd_str,
@@ -271,7 +272,7 @@ class ImageryCollection:
 
         elif category in HILLSHADES:
             components = [
-                region,
+                self._combine_with_event(geographic_description or region, event_name),
                 DATA_DOMAINS[self.domain],
                 gsd_str,
                 DATA_CATEGORIES[category],
@@ -281,6 +282,28 @@ class ImageryCollection:
             raise SubtypeParameterError(category)
 
         self.stac["title"] = " ".join(filter(None, components))
+
+    @staticmethod
+    def _combine_with_event(term: str | None, event_name: str | None) -> str | None:
+        """Combine a location/description term with an event name for use in the title,
+        without repeating a term that's already contained in the event name.
+
+        Args:
+            term: the geographic description or region to combine with the event name
+            event_name: the name of the event, if any
+
+        Returns:
+            the combined term and event name, the event name alone, or the term alone
+        """
+        if not event_name:
+            return term
+        if not term:
+            return event_name
+        if term.lower() in event_name.lower():
+            return event_name
+        if event_name.lower() in term.lower():
+            return term
+        return f"{term} {event_name}"
 
     def set_description(self) -> None:
         """Set the descriptions for imagery and elevation datasets.
