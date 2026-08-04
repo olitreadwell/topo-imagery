@@ -285,16 +285,7 @@ class ImageryCollection:
 
     @staticmethod
     def _combine_with_event(term: str | None, event_name: str | None) -> str | None:
-        """Combine a location/description term with an event name for use in the title,
-        without repeating a term that's already contained in the event name.
-
-        Args:
-            term: the geographic description or region to combine with the event name
-            event_name: the name of the event, if any
-
-        Returns:
-            the combined term and event name, the event name alone, or the term alone
-        """
+        """Combine a location/description term with an event name, without repeating an overlapping term."""
         if not event_name:
             return term
         if not term:
