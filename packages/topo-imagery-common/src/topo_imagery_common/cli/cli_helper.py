@@ -95,9 +95,15 @@ def parse_list(list_s: str, separator: str | None = ";") -> list[str]:
     Returns:
         a list of strings
     """
-    if list_s:
-        return [s.strip() for s in list_s.split(separator) if s != ""]
-    return []
+    if not list_s:
+        return []
+    items = []
+    for item in list_s.split(separator):
+        stripped = item.strip()
+        # Skip entries that are empty or whitespace only so they do not leak into the output.
+        if stripped:
+            items.append(stripped)
+    return items
 
 
 def coalesce_multi_single(multi_items: str | None, single_item: str | None) -> list[str]:
