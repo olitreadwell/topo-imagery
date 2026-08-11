@@ -14,6 +14,7 @@ from topo_imagery_common.cli.cli_helper import (
     get_tile_files,
     parse_list,
     str_to_bool,
+    str_to_gsd,
     str_to_list_or_none,
     str_to_positive_int,
     valid_date,
@@ -258,3 +259,19 @@ def test_str_to_list_or_none_raises_when_value_has_wrong_length() -> None:
     with raises(ArgumentTypeError) as e:
         str_to_list_or_none("2,4,6")
     assert "exactly 2 values" in str(e.value)
+
+
+def test_str_to_list_or_none_raises_when_value_is_not_numeric() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_list_or_none("foo,4")
+    assert "must be numeric" in str(e.value)
+
+
+def test_str_to_gsd_returns_decimal_when_value_is_valid() -> None:
+    assert str_to_gsd("0.3") == Decimal("0.3")
+
+
+def test_str_to_gsd_raises_when_value_is_not_a_valid_decimal() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_gsd("foo")
+    assert str(e.value) == "'foo' is not a valid GSD value"
