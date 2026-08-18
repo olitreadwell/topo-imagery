@@ -2,13 +2,13 @@ from decimal import Decimal
 
 import pytest
 from pytest_subtests import SubTests
+from topo_imagery_common.epsg import EpsgNumber
 from topo_imagery_gdal.gdal.gdal_commands import (
     get_buffer_distance,
     get_cutline_command,
     get_footprint_command,
     get_gdal_command,
 )
-from topo_imagery_gdal.gdal.gdal_helper import EpsgNumber
 from topo_imagery_gdal.gdal.gdal_presets import CompressionPreset, HillshadePreset
 
 
@@ -25,7 +25,7 @@ def test_get_buffer_distance(subtests: SubTests) -> None:
 
 
 def test_preset_webp(subtests: SubTests) -> None:
-    gdal_command = get_gdal_command(CompressionPreset.WEBP.value, epsg=EpsgNumber.NZTM_2000.value)
+    gdal_command = get_gdal_command(CompressionPreset.WEBP.value, epsg=EpsgNumber.NZTM_2000)
 
     # Basic cog creation
     with subtests.test():
@@ -65,7 +65,7 @@ def test_preset_webp(subtests: SubTests) -> None:
 
 
 def test_preset_zstd(subtests: SubTests) -> None:
-    gdal_command = get_gdal_command(CompressionPreset.RGBNIR_ZSTD.value, epsg=EpsgNumber.NZTM_2000.value)
+    gdal_command = get_gdal_command(CompressionPreset.RGBNIR_ZSTD.value, epsg=EpsgNumber.NZTM_2000)
 
     # Basic cog creation
     with subtests.test():
@@ -102,7 +102,7 @@ def test_preset_zstd(subtests: SubTests) -> None:
 
 
 def test_preset_lzw(subtests: SubTests) -> None:
-    gdal_command = get_gdal_command(CompressionPreset.LZW.value, epsg=EpsgNumber.NZTM_2000.value)
+    gdal_command = get_gdal_command(CompressionPreset.LZW.value, epsg=EpsgNumber.NZTM_2000)
 
     # Basic cog creation
     with subtests.test():
@@ -142,7 +142,7 @@ def test_preset_lzw(subtests: SubTests) -> None:
 
 
 def test_preset_dem_lerc(subtests: SubTests) -> None:
-    gdal_command = get_gdal_command(CompressionPreset.DEM_LERC.value, epsg=EpsgNumber.NZTM_2000.value)
+    gdal_command = get_gdal_command(CompressionPreset.DEM_LERC.value, epsg=EpsgNumber.NZTM_2000)
     # Basic cog creation
     with subtests.test():
         assert "COG" in gdal_command
