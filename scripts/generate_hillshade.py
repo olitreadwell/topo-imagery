@@ -164,9 +164,6 @@ def main() -> None:
     gdal_version = os.environ["GDAL_VERSION"]
 
     get_log().info("generate_hillshade_start", gdalVersion=gdal_version, fileCount=len(tile_files), preset=arguments.preset)
-    gdal_version = os.environ["GDAL_VERSION"]
-
-    get_log().info("generate_hillshade_start", gdalVersion=gdal_version, fileCount=len(tile_files), preset=arguments.preset)
 
     concurrency: int = 1
     if arguments.is_argo:
