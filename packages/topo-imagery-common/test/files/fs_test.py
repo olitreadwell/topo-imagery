@@ -29,7 +29,7 @@ def test_read_key_not_found_s3(capsys: CaptureFixture[str]) -> None:
 
 
 def test_write_all_file_not_found_local() -> None:
-    # Raises an exception as all files are not writte·
+    # Raises an exception as all files are not written
     with raises(Exception) as e:
         write_all(["/test.prj"], "/tmp")
 

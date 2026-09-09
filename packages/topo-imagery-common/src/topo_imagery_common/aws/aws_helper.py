@@ -97,7 +97,7 @@ def get_session(prefix: str) -> Session:
 
 
 def get_session_credentials(prefix: str, retry_count: int = 3) -> ReadOnlyCredentials:
-    """Attempt to get credentials for a `prefix`, retrying upto `retry_count` amount of times.
+    """Attempt to get credentials for a `prefix`, retrying up to `retry_count` amount of times.
 
     Args:
         prefix: the `s3` object path (key)
