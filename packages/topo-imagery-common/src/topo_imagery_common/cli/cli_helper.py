@@ -1,7 +1,7 @@
 import argparse
 import json
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from typing import Any, NamedTuple
 
 import shapely.geometry
@@ -95,9 +95,15 @@ def parse_list(list_s: str, separator: str | None = ";") -> list[str]:
     Returns:
         a list of strings
     """
-    if list_s:
-        return [s.strip() for s in list_s.split(separator) if s != ""]
-    return []
+    if not list_s:
+        return []
+    items = []
+    for item in list_s.split(separator):
+        stripped = item.strip()
+        # Skip entries that are empty or whitespace only so they do not leak into the output.
+        if stripped:
+            items.append(stripped)
+    return items
 
 
 def coalesce_multi_single(multi_items: str | None, single_item: str | None) -> list[str]:
@@ -121,7 +127,21 @@ def coalesce_multi_single(multi_items: str | None, single_item: str | None) -> l
 
 
 def str_to_gsd(value: str) -> Decimal:
-    return Decimal(value)
+    """Transform a string to a Decimal representing a GSD value.
+
+    Args:
+        value: string representing a GSD value, for example "0.3"
+
+    Raises:
+        ArgumentTypeError: if the string is not a valid decimal number
+
+    Returns:
+        Decimal: the parsed GSD value
+    """
+    try:
+        return Decimal(value)
+    except InvalidOperation as exc:
+        raise argparse.ArgumentTypeError(f"{value!r} is not a valid GSD value") from exc
 
 
 def str_to_bool(value: str) -> bool:
@@ -185,7 +205,10 @@ def str_to_list_or_none(values: str) -> list[Decimal] | None:
     """
     if not values:
         return None
-    result = [Decimal(value) for value in values.split(",")]
+    try:
+        result = [Decimal(value) for value in values.split(",")]
+    except InvalidOperation as exc:
+        raise argparse.ArgumentTypeError(f"Invalid list - values must be numeric. Received: {values}") from exc
     if len(result) != 2:
         raise argparse.ArgumentTypeError(f"Invalid list - must be blank or exactly 2 values x,y. Received: {values}")
     return result
