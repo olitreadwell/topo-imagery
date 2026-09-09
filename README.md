@@ -30,7 +30,7 @@ The scripts have been implemented to be run inside the Docker container only. Th
 docker build --tag=topo-imagery .
 ```
 
-- Example: running `standardising_validate.py` script
+- Example: running `standardise_validate.py` script
 
 This script standardises TIFF files to [COGs](https://www.cogeo.org/) with a creation of a [STAC](https://stacspec.org/) Item file per TIFF containing the metadata.
 The input TIFF file paths have to be passed through a `json` file in the following format:
@@ -44,7 +44,7 @@ The input TIFF file paths have to be passed through a `json` file in the followi
 ]
 ```
 
-where `output` is the desired output [tile name](https://github.com/linz/topo-imagery/blob/6aa0fb565696cb99fb66ca92b8c678ef3523d11a/scripts/tile/tests/tile_index_data.py#L3-L514) and input is the path to one or several TIFFs. If more than one TIFF, the system will try to retile them into one single output file.
+where `output` is the desired output [tile name](https://github.com/linz/topo-imagery/blob/master/packages/topo-imagery-gdal/test/tile/tile_index_data.py#L3-L514) and input is the path to one or several TIFFs. If more than one TIFF, the system will try to retile them into one single output file.
 
 Some test data are available in `/scripts/tests/data/` along with the expected output.
 
@@ -75,7 +75,7 @@ A new container is published every time a change is [merged to the `master` bran
 - `latest`
 - `github` version (example: `v1.1.0-2-ga1154e8`)
 
-A new container is also published [when a release is merged to `master`](https://github.com/linz/topo-imagery/blob/master/.github/workflows/release-please.yml) (see section bellow). This container will be tagged with the following:
+A new container is also published [when a release is merged to `master`](https://github.com/linz/topo-imagery/blob/master/.github/workflows/release-please.yml) (see section below). This container will be tagged with the following:
 
 - `latest`
 - `vX` (example: `v1`)
