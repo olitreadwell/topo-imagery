@@ -30,6 +30,8 @@
 - `2026-08-05` PR #2 (bug-fix-combined-story, harden CLI arg parsers) — pr-opened-green; promote #2, close #1
 - `2026-08-26` PR #6 (bug-fix) — pr-opened; body updated in audit sweep
 - `2026-09-09` self-found trivial pass (typos + stale command/link in README/CONTRIBUTING + docstring typos) — pr-opened
+- `2026-09-09` self-found bug-fix (duplicate `generate_hillshade_start` log line in scripts/generate_hillshade.py main()) — pr-opened
 
 ## Mined gaps (discovered, not yet attempted)
 - `2026-09-09` README/CONTRIBUTING typos + stale command/link + docstring typos (7 fixes, 5 files) — pr-opened (PR #11)
+- `2026-09-09` clean-code duplicate `generate_hillshade_start` log line emitted twice in scripts/generate_hillshade.py main() (introduced 6ce42f15, TDE-1441 #1301); repro: grep -c generate_hillshade_start == 2; expected 1 — status: attempted
