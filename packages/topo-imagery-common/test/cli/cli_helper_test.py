@@ -1,4 +1,6 @@
+from argparse import ArgumentTypeError
 from datetime import datetime
+from decimal import Decimal
 from typing import Any
 
 from pytest import raises
@@ -11,6 +13,10 @@ from topo_imagery_common.cli.cli_helper import (
     get_non_empty_features,
     get_tile_files,
     parse_list,
+    str_to_bool,
+    str_to_gsd,
+    str_to_list_or_none,
+    str_to_positive_int,
     valid_date,
 )
 
@@ -59,8 +65,15 @@ def test_parse_list() -> None:
 
 
 def test_parse_list_empty() -> None:
+    # pylint: disable=use-implicit-booleaness-not-comparison
     list_parsed = parse_list("")
     assert list_parsed == []
+
+
+def test_parse_list_drops_whitespace_only_entries() -> None:
+    # A whitespace-only entry between two values must not leak into the output.
+    list_parsed = parse_list("Auckland Council; ; Nelson Council")
+    assert list_parsed == ["Auckland Council", "Nelson Council"]
 
 
 def test_coalesce_multi_no_single() -> None:
@@ -196,3 +209,69 @@ def test_get_non_empty_features_single_feature() -> None:
     features = get_non_empty_features(geojson, "/tmp/test/test.geojson")
     assert len(features) == 1
     assert features[0]["type"] == "Feature"
+
+
+def test_str_to_positive_int_returns_int_when_value_is_positive() -> None:
+    assert str_to_positive_int("5") == 5
+
+
+def test_str_to_positive_int_raises_when_value_is_not_an_integer() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_positive_int("foo")
+    assert str(e.value) == "'foo' is not a valid integer"
+
+
+def test_str_to_positive_int_raises_when_value_is_zero() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_positive_int("0")
+    assert str(e.value) == "must be >= 1"
+
+
+def test_str_to_positive_int_raises_when_value_is_negative() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_positive_int("-1")
+    assert str(e.value) == "must be >= 1"
+
+
+def test_str_to_bool_returns_true_when_value_is_true() -> None:
+    assert str_to_bool("true") is True
+
+
+def test_str_to_bool_returns_false_when_value_is_false() -> None:
+    assert str_to_bool("false") is False
+
+
+def test_str_to_bool_raises_when_value_is_not_a_boolean() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_bool("yes")
+    assert "yes" in str(e.value)
+
+
+def test_str_to_list_or_none_returns_none_when_value_is_empty() -> None:
+    assert str_to_list_or_none("") is None
+
+
+def test_str_to_list_or_none_returns_two_decimals_when_value_has_two_items() -> None:
+    assert str_to_list_or_none("2,4") == [Decimal("2"), Decimal("4")]
+
+
+def test_str_to_list_or_none_raises_when_value_has_wrong_length() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_list_or_none("2,4,6")
+    assert "exactly 2 values" in str(e.value)
+
+
+def test_str_to_list_or_none_raises_when_value_is_not_numeric() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_list_or_none("foo,4")
+    assert "must be numeric" in str(e.value)
+
+
+def test_str_to_gsd_returns_decimal_when_value_is_valid() -> None:
+    assert str_to_gsd("0.3") == Decimal("0.3")
+
+
+def test_str_to_gsd_raises_when_value_is_not_a_valid_decimal() -> None:
+    with raises(ArgumentTypeError) as e:
+        str_to_gsd("foo")
+    assert str(e.value) == "'foo' is not a valid GSD value"
