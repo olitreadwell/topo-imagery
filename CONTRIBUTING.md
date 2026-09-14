@@ -54,7 +54,7 @@ The code should follow the same **patterns, naming conventions, formatting and s
   Keep consistent naming across modules for things that have the same purpose. For example, a CLI argument for the source files to take in input, should not be `source` somewhere and `input` or `path` somewhere else.
 
 - **Structure**
-  - Maintain the same folder and module pattern accross the repository
+  - Maintain the same folder and module pattern across the repository
   - Keep similar types of functions grouped together
 
 #### Focused changes
