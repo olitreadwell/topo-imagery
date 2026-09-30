@@ -29,7 +29,7 @@ def test_read_key_not_found_s3(capsys: CaptureFixture[str]) -> None:
 
 
 def test_write_all_file_not_found_local() -> None:
-    # Raises an exception as all files are not writte·
+    # Raises an exception as all files are not written
     with raises(Exception) as e:
         write_all(["/test.prj"], "/tmp")
 
@@ -72,7 +72,7 @@ def test_write_sidecars_one_found(capsys: CaptureFixture[str], subtests: SubTest
     path = os.path.join(target, "test.tfw")
     write(path, content)
     non_existing_path = os.path.join(target, "test.prj")
-    # Write the sidecar files with one unexisting
+    # Write the sidecar files with one non-existent file
     write_sidecars([non_existing_path, path], os.path.join(target, "/tmp"))
     logs = capsys.readouterr().out
     with subtests.test(msg="One has not been found"):

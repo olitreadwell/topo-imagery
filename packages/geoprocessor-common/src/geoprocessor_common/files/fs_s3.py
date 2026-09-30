@@ -90,7 +90,7 @@ def exists(path: str, needs_credentials: bool = False) -> bool:
 
     Args:
         path: path to the s3 object/key
-        needs_credentials: if acces to object needs credentials. Defaults to False.
+        needs_credentials: if access to object needs credentials. Defaults to False.
 
     Raises:
         s3_client.exceptions.ClientError
@@ -142,7 +142,7 @@ def bucket_name_from_path(path: str) -> str:
         the bucket name
 
     Example:
-        >>> bucket_name_from_path("s3://linz-imagery/wellingon/")
+        >>> bucket_name_from_path("s3://linz-imagery/wellington/")
         'linz-imagery'
     """
     path_parts = path.replace("s3://", "").split("/")
@@ -171,7 +171,7 @@ def list_files_in_uri(uri: str, suffixes: list[str], s3_client: S3Client | None)
 
     Args:
         uri: an s3 path
-        suffixes: a a list of suffixes. example: [".json", "_meta.xml"]
+        suffixes: a list of suffixes. example: [".json", "_meta.xml"]
         s3_client: an s3 client
 
     Returns:

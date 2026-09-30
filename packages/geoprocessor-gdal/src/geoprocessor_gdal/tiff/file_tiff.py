@@ -223,7 +223,7 @@ class FileTiff:
             error_type: one of the value of `FileTiffErrorType`
 
         Returns:
-            True if the the `error_type` is found
+            True if the `error_type` is found
         """
         for error in self._errors:
             if error["type"] == error_type:
