@@ -1,5 +1,5 @@
 # linz/topo-imagery context
-> refreshed 2026-09-25 | upstream default: master @ c2a5718069838f03daa3a5e4e850417f50bc7b83
+> refreshed 2026-09-30 | upstream default: master @ 50e00cdc901b49fd3042be12fc4291b3533a30ef
 
 ## Identity & policies
 - upstream: linz/topo-imagery — renamed on GitHub to `linz/geoprocessor` (same repo; `repos/linz/topo-imagery` redirects). Default branch `master`, primary language Python, English-first (yes — README/CONTRIBUTING in English).
@@ -17,7 +17,7 @@ Note: prior runs referenced `scripts/*.py` at repo root. Code now lives under `p
 - branch naming: `type/kebab-description-tde-####` (e.g. `fix/no-valid-pixels-tde-1990`, `feat/Title-generation-...-TDE-2010`, `ci/...-tde-2021`, `refactor/...-tde-1920`); release-please uses `release-please--branches--master`
 - commit style: Conventional Commits (`fix:`, `feat:`, `refactor:`, `build:`, `ci:`, `chore:`); `.gitlint` enforces it
 - test command: `pytest` (per-package `test/` dirs); lint: black, isort, mypy, pylint, prettier (pre-commit)
-- CI: GitHub Actions (`Build` workflow) — substantive checks run on the fork
+- CI: GitHub Actions (`Format and Tests` workflow, plus `Pull Request lint` and `Containers`) — substantive checks run on the fork. Note: the old `Build` workflow no longer exists, so badges/links naming `Build` are stale.
 - outside PRs merge: responsive; recent external merges 60d = 14; maintainers review small PRs
 
 ## Maintainer picture
@@ -37,7 +37,9 @@ Note: prior runs referenced `scripts/*.py` at repo root. Code now lives under `p
 - `2026-09-09` self-found bug-fix (duplicate `generate_hillshade_start` log line in scripts/generate_hillshade.py main()) — pr-opened
 
 - `2026-09-25` PR #17 (bug-fix: charcodeat error message reported `type(int)` instead of actual `index` type) — pr-opened; fork CI green; 1-line fix + regression test
+- `2026-09-30` self-found trivial pass (8 genuine fixes, 5 files: dependabot link `network/updates`->`network/dependencies`, README grammar x2, CONTRIBUTING "make researches"->"do research", `wellingon`->`wellington` doctest, `a a` docstring, "unexisting" test comment, "the the" docstring) — pr-opened (PR #19)
 ## Mined gaps (discovered, not yet attempted)
 - `2026-09-09` README/CONTRIBUTING typos + stale command/link + docstring typos (7 fixes, 5 files) — pr-opened (PR #11)
 - `2026-09-09` clean-code duplicate `generate_hillshade_start` log line emitted twice in scripts/generate_hillshade.py main() (introduced 6ce42f15, TDE-1441 #1301); repro: grep -c generate_hillshade_start == 2; expected 1 — pr-opened (PR #12)
 - `2026-09-25` clean-code `charcodeat()` in packages/geoprocessor-gdal/src/geoprocessor_gdal/tile/util.py raises an error that reports `type(int)` instead of the actual type of `index`. Repro: `charcodeat("A", "0")` -> "…received <class 'str'> and <class 'type'>." (wrong); expected to name the real index type (a str). Verifiable in pure Python, no GDAL. Dedupe: `rg type(int)` unique in repo; no upstream issue/PR touches it — status: attempted (PR #17)
+- `2026-09-30` docs: README badge still points at the removed `Build` workflow (`workflows/Build/badge.svg` renders "Build - no status"); current workflow is `Format and Tests` (badge 200 "passing"). Left out of PR #19 as the which-workflow choice is a maintainer call — status: proposed
