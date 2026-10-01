@@ -1,5 +1,7 @@
 # linz/topo-imagery context
-> refreshed 2026-09-30 | upstream default: master @ 50e00cdc901b49fd3042be12fc4291b3533a30ef
+> refreshed 2026-10-01 | upstream default: master @ f0a1794566409c66bcf18a6fa99089e0652321a1
+
+Upstream moved 3 commits since the 2026-09-30 refresh: `0fb3b3a` fix: raise clear error when intermediate files disappear TDE-2099 (#1665), `c546acd` revert: streaming file copies (#1663), `f0a1794` release: 9.0.3 (#1669). None touch the docstring lines below. Upstream still has ZERO open issues (2026-10-01); open upstream PRs are dependabot bumps plus in-flight #1655 (rename), #1654 and #1668 (drafts).
 
 ## Identity & policies
 - upstream: linz/topo-imagery — renamed on GitHub to `linz/geoprocessor` (same repo; `repos/linz/topo-imagery` redirects). Default branch `master`, primary language Python, English-first (yes — README/CONTRIBUTING in English).
@@ -38,8 +40,10 @@ Note: prior runs referenced `scripts/*.py` at repo root. Code now lives under `p
 
 - `2026-09-25` PR #17 (bug-fix: charcodeat error message reported `type(int)` instead of actual `index` type) — pr-opened; fork CI green; 1-line fix + regression test
 - `2026-09-30` self-found trivial pass (8 genuine fixes, 5 files: dependabot link `network/updates`->`network/dependencies`, README grammar x2, CONTRIBUTING "make researches"->"do research", `wellingon`->`wellington` doctest, `a a` docstring, "unexisting" test comment, "the the" docstring) — pr-opened (PR #19)
+- `2026-10-01` self-found trivial pass (9 grammar/article fixes, 5 files, all distinct from PR #19: `as its not`->`as it's not` x2 and `a alpha`->`an alpha` x2 in gdal_commands.py; `a alpha band`->`an alpha band` + `int 512x512px`->`into` in gdal_presets.py; `an stderr`->`a stderr` in gdal_helper.py; `a end date`->`an end date` in stac item.py; `a invalid band count`->`an invalid` in file_tiff_test.py) — pr-opened (PR #20)
 ## Mined gaps (discovered, not yet attempted)
 - `2026-09-09` README/CONTRIBUTING typos + stale command/link + docstring typos (7 fixes, 5 files) — pr-opened (PR #11)
 - `2026-09-09` clean-code duplicate `generate_hillshade_start` log line emitted twice in scripts/generate_hillshade.py main() (introduced 6ce42f15, TDE-1441 #1301); repro: grep -c generate_hillshade_start == 2; expected 1 — pr-opened (PR #12)
 - `2026-09-25` clean-code `charcodeat()` in packages/geoprocessor-gdal/src/geoprocessor_gdal/tile/util.py raises an error that reports `type(int)` instead of the actual type of `index`. Repro: `charcodeat("A", "0")` -> "…received <class 'str'> and <class 'type'>." (wrong); expected to name the real index type (a str). Verifiable in pure Python, no GDAL. Dedupe: `rg type(int)` unique in repo; no upstream issue/PR touches it — status: attempted (PR #17)
 - `2026-09-30` docs: README badge still points at the removed `Build` workflow (`workflows/Build/badge.svg` renders "Build - no status"); current workflow is `Format and Tests` (badge 200 "passing"). Left out of PR #19 as the which-workflow choice is a maintainer call — status: proposed
+- `2026-10-01` grammar: `fs_s3.py` has four `a AWS S3`/`a AWS s3` docstring articles that should be `an AWS S3` (lines ~24, 90, 126, 164). NOT fixed in PR #20 to keep zero file overlap with the open PR #19 (which also edits fs_s3.py). Re-check once #19 closes — status: proposed
