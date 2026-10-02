@@ -231,7 +231,7 @@ def create_vrt(
     add_alpha: bool = False,
     resolution: list[Decimal] | None = None,
 ) -> str:
-    """Create a VRT from a list of tiffs files
+    """Create a VRT from a list of tiff files
 
     Args:
         source_tiffs: list of tiffs to create the VRT from
