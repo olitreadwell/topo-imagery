@@ -585,7 +585,7 @@ class ImageryCollection:  # pylint: disable=too-many-instance-attributes
         )
 
     def update_extent(self, bbox: list[float] | None = None, interval: list[str] | None = None) -> None:
-        """Update an extent of the Collection whereas it's spatial or temporal.
+        """Update an extent of the Collection whether it's spatial or temporal.
 
         Args:
             bbox: bounding box. Defaults to None.

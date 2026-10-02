@@ -96,7 +96,7 @@ class ImageryItem:
 
         Args:
             start_datetime: a start date in `YYYY-MM-DD` format
-            end_datetime: a end date in `YYYY-MM-DD` format
+            end_datetime: an end date in `YYYY-MM-DD` format
         """
         self.stac.setdefault("properties", {})
         self.stac["properties"]["start_datetime"] = start_datetime

@@ -144,7 +144,7 @@ def get_srs(epsg: int = EpsgNumber.NZTM_2000) -> bytes:
         epsg: the EPSG code to get the srs for. Defaults to 2193 (NZTM).
 
     Raises:
-        Exception: if `gdal` has an stderr
+        Exception: if `gdal` has a stderr
 
     Returns:
         the output of `gdalsrsinfo`

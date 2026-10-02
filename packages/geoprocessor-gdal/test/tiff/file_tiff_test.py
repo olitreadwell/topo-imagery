@@ -56,7 +56,7 @@ def test_check_band_count_valid_5() -> None:
 
 def test_check_band_count_invalid_2() -> None:
     """
-    tests check_band_count when the input layer has a invalid band count of 2
+    tests check_band_count when the input layer has an invalid band count of 2
     """
     gdalinfo = fake_gdalinfo()
     add_band(gdalinfo)

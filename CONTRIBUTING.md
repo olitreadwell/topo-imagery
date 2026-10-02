@@ -54,7 +54,7 @@ The code should follow the same **patterns, naming conventions, formatting and s
   Keep consistent naming across modules for things that have the same purpose. For example, a CLI argument for the source files to take in input, should not be `source` somewhere and `input` or `path` somewhere else.
 
 - **Structure**
-  - Maintain the same folder and module pattern accross the repository
+  - Maintain the same folder and module pattern across the repository
   - Keep similar types of functions grouped together
 
 #### Focused changes
@@ -76,7 +76,7 @@ Comments in the code should explain _why_ a piece of code exists or _why_ an app
 
 The goal is to communicate the **reasoning, decisions, and assumptions** where it is not obvious so the reader can clearly understand.
 
-It makes the code easier to refactor or extend without breaking something. It also helps reviewers to understand the context quickly without having to ask questions or make researches.
+It makes the code easier to refactor or extend without breaking something. It also helps reviewers to understand the context quickly without having to ask questions or do research.
 
 Where possible, prefer executable documentation such as `doctest` over explanatory comments.  
 `doctest` documents expected behavior through concrete examples that are automatically verified by running the tests pipeline.
