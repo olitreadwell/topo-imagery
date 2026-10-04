@@ -77,7 +77,7 @@ def test_should_reject_a_uri_that_is_not_an_s3_path(fake_collection_context: Col
     args = base_args(fake_collection_context.linz_slug)
     args[args.index("--uri") + 1] = "/local/path/"
 
-    with raises(Exception, match="uri is not a s3 path"):
+    with raises(Exception, match="uri is not an s3 path"):
         main(args)
 
 

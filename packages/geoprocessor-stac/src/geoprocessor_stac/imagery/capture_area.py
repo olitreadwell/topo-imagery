@@ -51,7 +51,7 @@ def extract_polygons(geometry: BaseGeometry) -> BaseGeometry:
 def merge_polygons(polygons: Sequence[BaseGeometry], buffer_distance: float) -> BaseGeometry:
     """Merge a list of polygons by converting them to a single geometry that covers the same area.
     A buffer distance is used to buffer out the polygons before dissolving them together and then negative buffer them back in.
-    The merged geometry is simplify (rounded) to the decimal used for the buffer.
+    The merged geometry is simplified (rounded) to the decimal used for the buffer.
 
     Args:
         polygons: list of polygons to merge

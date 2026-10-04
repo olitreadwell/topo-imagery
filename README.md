@@ -1,8 +1,8 @@
 # Topo Imagery
 
-[![GitHub Actions Status](https://github.com/linz/topo-imagery/workflows/Build/badge.svg)](https://github.com/linz/topo-imagery/actions)
+[![GitHub Actions Status](https://github.com/linz/topo-imagery/workflows/Format%20and%20Tests/badge.svg)](https://github.com/linz/topo-imagery/actions)
 [![Coverage: 100% branches](https://img.shields.io/badge/Coverage-100%25%20branches-brightgreen.svg)](https://pytest.org/)
-[![Dependabot Status](https://badgen.net/badge/Dependabot/enabled?labelColor=2e3a44&color=blue)](https://github.com/linz/topo-imagery/network/updates)
+[![Dependabot Status](https://badgen.net/badge/Dependabot/enabled?labelColor=2e3a44&color=blue)](https://github.com/linz/topo-imagery/network/dependencies)
 [![License](https://badgen.net/github/license/linz/topo-imagery?labelColor=2e3a44&label=License)](https://github.com/linz/topo-imagery/blob/master/LICENSE)
 [![Conventional Commits](https://badgen.net/badge/Commits/conventional?labelColor=2e3a44&color=EC5772)](https://conventionalcommits.org)
 [![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black)
@@ -59,7 +59,7 @@ Some test data are available in `/e2e/data/` along with the expected output.
 
 Run `docker run topo-imagery standardise-validate --help` to get the list of the expected arguments.
 
-- Example of local execution. This example uses the test data available on this repo and create the output will be created in a `~/tmp/` on the local machine (volume share with `Docker`):
+- Example of local execution. This example uses the test data available on this repo and creates the output in a `~/tmp/` on the local machine (volume share with `Docker`):
 
 ```bash
 docker run -v ${HOME}/tmp/:/tmp/:rw topo-imagery standardise-validate --preset webp --data-type uint8 --from-file ./tests/data/aerial.json --collection-id 123 --start-datetime 2023-01-01 --end-datetime 2023-01-01 --target /tmp/ --source-epsg 2193 --target-epsg 2193 --gsd 10 --create-footprints=true
@@ -84,7 +84,7 @@ A new container is published every time a change is [merged to the `master` bran
 - `latest`
 - `github` version (example: `v1.1.0-2-ga1154e8`)
 
-A new container is also published [when a release is merged to `master`](https://github.com/linz/topo-imagery/blob/master/.github/workflows/release-please.yml) (see section bellow). This container will be tagged with the following:
+A new container is also published [when a release is merged to `master`](https://github.com/linz/topo-imagery/blob/master/.github/workflows/release-please.yml) (see section below). This container will be tagged with the following:
 
 - `latest`
 - `vX` (example: `v1`)
@@ -117,4 +117,4 @@ To publish a release, the Pull Request opened by `release-please` bot needs to b
 
 1. Open the PR and verify that the `CHANGELOG` contains what you expect in the release. If the latest change you expect is not there, double-check that a GitHub Actions is not currently running or failed.
 2. Approve and merge the PR.
-3. Once the Pull Request is merged to `master` a [GitHub Action](https://github.com/linz/topo-imagery/blob/master/.github/workflows/release-please.yml) it creates the release and publish a new container tagged for this release.
+3. Once the Pull Request is merged to `master` a [GitHub Action](https://github.com/linz/topo-imagery/blob/master/.github/workflows/release-please.yml) creates the release and publishes a new container tagged for this release.

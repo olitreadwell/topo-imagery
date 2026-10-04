@@ -79,10 +79,10 @@ def get_cutline_command(cutline: str | None) -> list[str]:
 
     gdal_command = [
         "gdalwarp",
-        # Outputting a VRT makes things faster as its not recomputing everything
+        # Outputting a VRT makes things faster as it's not recomputing everything
         "-of",
         "VRT",
-        # Ensure the target has a alpha channel
+        # Ensure the target has an alpha channel
         "-dstalpha",
     ]
 
@@ -136,10 +136,10 @@ def get_alpha_command() -> list[str]:
 
     return [
         "gdalwarp",
-        # Outputting a VRT makes things faster as its not recomputing everything
+        # Outputting a VRT makes things faster as it's not recomputing everything
         "-of",
         "VRT",
-        # Ensure the target has a alpha channel
+        # Ensure the target has an alpha channel
         "-dstalpha",
     ]
 
