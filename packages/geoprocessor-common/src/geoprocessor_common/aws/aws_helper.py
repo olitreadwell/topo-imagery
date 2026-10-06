@@ -97,7 +97,7 @@ def get_session(prefix: str) -> Session:
 
 
 def get_session_credentials(prefix: str, retry_count: int = 3) -> ReadOnlyCredentials:
-    """Attempt to get credentials for a `prefix`, retrying upto `retry_count` amount of times.
+    """Attempt to get credentials for a `prefix`, retrying up to `retry_count` amount of times.
 
     Args:
         prefix: the `s3` object path (key)
@@ -148,7 +148,7 @@ def parse_path(path: str) -> S3Path:
     """Parse the path and split it into bucket name and key.
 
     Args:
-        path: A S3 path.
+        path: An S3 path.
 
     Returns:
         S3Path: s3_path.bucket , s3_path.key

@@ -7,7 +7,7 @@ class CredentialSource:
     bucket: str
     """Base bucket location may be a subset of bucket"""
     type: str
-    """Type of role assumption generally "s3"""
+    """Type of role assumption generally 's3'"""
     prefix: str
     """
     Prefix for what the role is valid, generally starts with s3://
@@ -26,7 +26,7 @@ class CredentialSource:
     """
     roleSessionDuration: int | None = 1 * 60 * 60
     """
-    Max duration of the assumed session in seconds, default 1 hours
+    Max duration of the assumed session in seconds, default 1 hour
     """
     flags: str | None = None
     """

@@ -179,7 +179,7 @@ def run_pdal_fix_laz_header(
         force: overwrite existing files. Defaults to False.
 
     Returns:
-        the list of generated hillshade TIFF paths with their input files.
+        the list of fixed LAZ file paths.
     """
     with Pool(concurrency) as p:
         results = list(p.map(partial(pdal_fix_laz_header, target=target, force=force), files_to_process))

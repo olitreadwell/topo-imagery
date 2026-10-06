@@ -29,7 +29,7 @@ def get_args_parser() -> CommonArgumentParser:
         dest="from_file",
         required=True,
         help="Specify the path to a json file containing the input tiffs. "
-        "Format: [{'output': 'tile1', 'inputs': ['path/input1.tiff', 'path/input2.tiff']}]",
+        "Format: [{'output': 'tile1', 'input': ['path/input1.tiff', 'path/input2.tiff']}]",
     )
     parser.add_argument(
         "--preset",

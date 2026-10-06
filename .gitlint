@@ -1,6 +1,6 @@
 # Configuration file for gitlint, used via pre-commit
-# Configuration docs: http://jorisroovers.github.io/gitlint/configuration/
-# Default rules: https://github.com/jorisroovers/gitlint/blob/master/docs/rules.md
+# Configuration docs: https://jorisroovers.com/gitlint/latest/configuration/
+# Default rules: https://jorisroovers.com/gitlint/latest/rules/
 
 [general]
 # Ignore certain rules, you can reference them by their id or by their full name

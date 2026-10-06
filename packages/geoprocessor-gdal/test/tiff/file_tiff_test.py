@@ -56,7 +56,7 @@ def test_check_band_count_valid_5() -> None:
 
 def test_check_band_count_invalid_2() -> None:
     """
-    tests check_band_count when the input layer has a invalid band count of 2
+    tests check_band_count when the input layer has an invalid band count of 2
     """
     gdalinfo = fake_gdalinfo()
     add_band(gdalinfo)
@@ -70,7 +70,7 @@ def test_check_band_count_invalid_2() -> None:
 
 def test_check_band_count_invalid_4() -> None:
     """
-    tests check_band_count when the input layer has a invalid
+    tests check_band_count when the input layer has an invalid
     band count of 4 where the 4th band is not Alpha
     """
     gdalinfo = fake_gdalinfo()
@@ -87,7 +87,7 @@ def test_check_band_count_invalid_4() -> None:
 
 def test_check_band_count_invalid_5() -> None:
     """
-    tests check_band_count when the input layer has a invalid
+    tests check_band_count when the input layer has an invalid
     band count of 5 where the 4th band is not NIR
     """
     gdalinfo = fake_gdalinfo()

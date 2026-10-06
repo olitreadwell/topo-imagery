@@ -21,7 +21,7 @@ else:
 
 
 def write(destination: str, source: bytes, content_type: str | None = None) -> None:
-    """Write a source (bytes) in a AWS s3 destination (path in a bucket).
+    """Write a source (bytes) in an AWS s3 destination (path in a bucket).
 
     Args:
         destination: The AWS S3 path to the file to write.
@@ -87,7 +87,7 @@ def upload(source_path: str, destination: str, content_type: str | None = None) 
 
 
 def _get_object_body(path: str, needs_credentials: bool = False) -> StreamingBody:
-    """Get the body of a file on a AWS S3 bucket as a stream.
+    """Get the body of a file on an AWS S3 bucket as a stream.
 
     Args:
         path: The AWS S3 path to the file to read.
@@ -123,7 +123,7 @@ def _get_object_body(path: str, needs_credentials: bool = False) -> StreamingBod
 
 
 def read(path: str, needs_credentials: bool = False) -> bytes:
-    """Read a file on a AWS S3 bucket.
+    """Read a file on an AWS S3 bucket.
 
     Args:
         path: The AWS S3 path to the file to read.
@@ -161,7 +161,7 @@ def download(path: str, destination: str, needs_credentials: bool = False) -> No
 
 
 def multihash(path: str, needs_credentials: bool = False) -> str:
-    """Get the multihash of a file on a AWS S3 bucket without loading it into memory.
+    """Get the multihash of a file on an AWS S3 bucket without loading it into memory.
 
     Args:
         path: The AWS S3 path to the file to hash.
@@ -185,7 +185,7 @@ def exists(path: str, needs_credentials: bool = False) -> bool:
 
     Args:
         path: path to the s3 object/key
-        needs_credentials: if acces to object needs credentials. Defaults to False.
+        needs_credentials: if access to object needs credentials. Defaults to False.
 
     Raises:
         ClientError
@@ -237,7 +237,7 @@ def bucket_name_from_path(path: str) -> str:
         the bucket name
 
     Example:
-        >>> bucket_name_from_path("s3://linz-imagery/wellingon/")
+        >>> bucket_name_from_path("s3://linz-imagery/wellington/")
         'linz-imagery'
     """
     path_parts = path.replace("s3://", "").split("/")
@@ -262,11 +262,11 @@ def prefix_from_path(path: str) -> str:
 
 
 def list_files_in_uri(uri: str, suffixes: list[str], s3_client: S3Client | None) -> list[str]:
-    """Get a list of file paths from a s3 path based on their suffixes
+    """Get a list of file paths from an s3 path based on their suffixes
 
     Args:
         uri: an s3 path
-        suffixes: a a list of suffixes. example: [".json", "_meta.xml"]
+        suffixes: a list of suffixes. example: [".json", "_meta.xml"]
         s3_client: an s3 client
 
     Returns:
