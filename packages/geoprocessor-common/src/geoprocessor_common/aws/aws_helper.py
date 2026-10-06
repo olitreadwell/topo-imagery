@@ -148,7 +148,7 @@ def parse_path(path: str) -> S3Path:
     """Parse the path and split it into bucket name and key.
 
     Args:
-        path: A S3 path.
+        path: An S3 path.
 
     Returns:
         S3Path: s3_path.bucket , s3_path.key

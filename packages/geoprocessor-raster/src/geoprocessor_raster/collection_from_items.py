@@ -174,7 +174,7 @@ def main(args: list[str] | None = None) -> None:
     uri = arguments.uri
 
     if not uri.startswith("s3://"):
-        msg = f"uri is not a s3 path: {uri}"
+        msg = f"uri is not an s3 path: {uri}"
         raise argparse.ArgumentTypeError(msg)
 
     collection_context = CollectionContext(

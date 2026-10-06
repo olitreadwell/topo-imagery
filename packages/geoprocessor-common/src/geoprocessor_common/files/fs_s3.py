@@ -262,7 +262,7 @@ def prefix_from_path(path: str) -> str:
 
 
 def list_files_in_uri(uri: str, suffixes: list[str], s3_client: S3Client | None) -> list[str]:
-    """Get a list of file paths from a s3 path based on their suffixes
+    """Get a list of file paths from an s3 path based on their suffixes
 
     Args:
         uri: an s3 path
