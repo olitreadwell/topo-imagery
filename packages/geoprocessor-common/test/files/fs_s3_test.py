@@ -230,6 +230,27 @@ def test_directory_exists() -> None:
 
 
 @mock_aws
+def test_directory_not_exists_when_no_object_matches_prefix() -> None:
+    s3_client: S3Client = client("s3", region_name=DEFAULT_REGION_NAME)
+    s3_client.create_bucket(Bucket="testbucket")
+    s3_client.put_object(Bucket="testbucket", Key="hello/test.file", Body=b"test content")
+
+    directory_exists = exists("s3://testbucket/does-not-exist/")
+
+    assert directory_exists is False
+
+
+@mock_aws
+def test_directory_not_exists_when_bucket_is_empty() -> None:
+    s3_client: S3Client = client("s3", region_name=DEFAULT_REGION_NAME)
+    s3_client.create_bucket(Bucket="testbucket")
+
+    directory_exists = exists("s3://testbucket/")
+
+    assert directory_exists is False
+
+
+@mock_aws
 def test_exists_bucket_not_exists(capsys: CaptureFixture[str], subtests: SubTests) -> None:
     file_exists = exists("s3://testbucket/test.file")
 
