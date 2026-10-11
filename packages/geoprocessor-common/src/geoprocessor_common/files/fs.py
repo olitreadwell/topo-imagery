@@ -144,7 +144,7 @@ def write_all(inputs: list[str], target: str, concurrency: int | None = 4, gener
         inputs: list of files to read
         target: target folder to write to
         concurrency: max thread pool workers
-        generated_name: create a target file name based on multihash the source filename
+        generate_name: create a target file name based on multihash the source filename
 
     Returns:
         list of written file paths
@@ -193,7 +193,7 @@ def write_sidecars(inputs: list[str], target: str, concurrency: int | None = 4) 
 def write_file(input_: str, target: str, generate_name: bool | None = True) -> str:
     """Read a file from a path and write it to a target path.
     Args:
-        input: A path to a file to read.
+        input_: A path to a file to read.
         target: A path to write the file to.
         generate_name: create a target file name based on multihash the source filename
 
