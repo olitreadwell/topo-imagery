@@ -51,7 +51,7 @@ def run_gdal(
     input_file: str | None = None,
     output_file: str | None = None,
 ) -> "subprocess.CompletedProcess[bytes]":
-    """Run the GDAL command. The permissions to access to the input file are applied to the gdal environment.
+    """Run the GDAL command. The permissions to access the input file are applied to the gdal environment.
 
     Args:
         command: each arguments of the GDAL command
