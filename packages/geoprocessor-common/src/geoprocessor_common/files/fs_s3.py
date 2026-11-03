@@ -204,9 +204,8 @@ def exists(path: str, needs_credentials: bool = False) -> bool:
         if path.endswith("/"):
             # MaxKeys limits to 1 object in the response
             objects = s3_client.list_objects_v2(Bucket=bucket, Prefix=key, MaxKeys=1)
-            if len(list(objects)) > 0:
-                return True
-            return False
+            # `Contents` is only present in the response when at least one object matches the prefix
+            return "Contents" in objects
 
         s3_client.head_object(Bucket=bucket, Key=key)
 
