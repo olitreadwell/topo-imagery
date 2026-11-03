@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.1](https://github.com/linz/geoprocessor/compare/geoprocessor-stac-v1.1.0...geoprocessor-stac-v1.1.1) (2026-10-20)
+
+
+### Bug Fixes
+
+* extension reference missing on update TDE-2118 ([#1687](https://github.com/linz/geoprocessor/issues/1687)) ([c6e7fac](https://github.com/linz/geoprocessor/commit/c6e7fac4ee9b776e2e8e821baf7c96fe862cec8d))
+
+## [1.1.0](https://github.com/linz/geoprocessor/compare/geoprocessor-stac-v1.0.0...geoprocessor-stac-v1.1.0) (2026-10-13)
+
+
+### Features
+
+* rescale 16-bit sources to 8-bit with the webp preset TDE-2106 ([#1683](https://github.com/linz/geoprocessor/issues/1683)) ([27293c7](https://github.com/linz/geoprocessor/commit/27293c71ec5009b2b0e8713166c9486ace0e8171))
+
 ## [1.0.0](https://github.com/linz/geoprocessor/compare/geoprocessor-stac-v0.1.3...geoprocessor-stac-v1.0.0) (2026-10-07)
 
 
