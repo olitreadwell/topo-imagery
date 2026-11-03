@@ -132,7 +132,7 @@ def str_to_bool(value: str) -> bool:
         True
 
     Args:
-        str: string representing a boolean value
+        value: string representing a boolean value
 
     Raises:
         ArgumentTypeError: if the string is not "true" or "false"
@@ -157,7 +157,7 @@ def empty_str_to_false(value: str) -> str | bool:
         'foo'
 
     Args:
-        str: string representing a capture area or an empty string
+        value: string representing a capture area or an empty string
 
     Returns:
         str | bool: False if value is an empty string else returns value
@@ -175,7 +175,7 @@ def str_to_list_or_none(values: str) -> list[Decimal] | None:
         True
 
     Args:
-        str: string representing a list or an empty string
+        values: string representing a list or an empty string
 
     Raises:
         ArgumentTypeError: if the string is not empty and does not contain exactly 2 values

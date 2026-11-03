@@ -81,7 +81,7 @@ def run_pdal(
     input_file: str | None = None,
     output_file: str | None = None,
 ) -> "subprocess.CompletedProcess[bytes]":
-    """Run the PDAL command. The permissions to access to the input file are applied to the pdal environment.
+    """Run the PDAL command. The permissions to access the input file are applied to the pdal environment.
 
     Args:
         command_options_args: list of command, options and arguments to be passed to the PDAL command
