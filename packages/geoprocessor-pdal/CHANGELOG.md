@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.3](https://github.com/linz/geoprocessor/compare/geoprocessor-pdal-v0.1.2...geoprocessor-pdal-v0.1.3) (2026-09-30)
+
+
+### Reverts
+
+* "revert: "fix: stream file copies to allow outputs over 5GB TDE-2072" TDE-2090" ([#1663](https://github.com/linz/geoprocessor/issues/1663)) ([c546acd](https://github.com/linz/geoprocessor/commit/c546acde61d17b3eb5394e49fef4548c9cfff083))
+
+## [0.1.2](https://github.com/linz/geoprocessor/compare/geoprocessor-pdal-v0.1.1...geoprocessor-pdal-v0.1.2) (2026-09-25)
+
+
+### Reverts
+
+* "fix: stream file copies to allow outputs over 5GB TDE-2072" ([#1660](https://github.com/linz/geoprocessor/issues/1660)) ([ce6e399](https://github.com/linz/geoprocessor/commit/ce6e399e62527188932a3c134ef76725edff5127))
+
 ## [0.1.1](https://github.com/linz/geoprocessor/compare/geoprocessor-pdal-v0.1.0...geoprocessor-pdal-v0.1.1) (2026-09-23)
 
 

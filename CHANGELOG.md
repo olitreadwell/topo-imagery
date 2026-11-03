@@ -1,5 +1,54 @@
 # Changelog
 
+## [10.1.1](https://github.com/linz/geoprocessor/compare/v10.1.0...v10.1.1) (2026-10-20)
+
+
+### Bug Fixes
+
+* extension reference missing on update TDE-2118 ([#1687](https://github.com/linz/geoprocessor/issues/1687)) ([c6e7fac](https://github.com/linz/geoprocessor/commit/c6e7fac4ee9b776e2e8e821baf7c96fe862cec8d))
+
+## [10.1.0](https://github.com/linz/geoprocessor/compare/v10.0.0...v10.1.0) (2026-10-13)
+
+
+### Features
+
+* rescale 16-bit sources to 8-bit with the webp preset TDE-2106 ([#1683](https://github.com/linz/geoprocessor/issues/1683)) ([27293c7](https://github.com/linz/geoprocessor/commit/27293c71ec5009b2b0e8713166c9486ace0e8171))
+
+
+### Bug Fixes
+
+* replace mutually exclusive arguments with validation TDE-2117 ([#1684](https://github.com/linz/geoprocessor/issues/1684)) ([5e76e31](https://github.com/linz/geoprocessor/commit/5e76e31b523c9b8492bee8f4f387c04a77fcf7af))
+
+## [10.0.0](https://github.com/linz/geoprocessor/compare/v9.0.3...v10.0.0) (2026-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename topo-imagery repo, project and container TDE-2073 TDE-2008 ([#1655](https://github.com/linz/geoprocessor/issues/1655))
+
+### Code Refactoring
+
+* rename topo-imagery repo, project and container TDE-2073 TDE-2008 ([#1655](https://github.com/linz/geoprocessor/issues/1655)) ([42e5ad3](https://github.com/linz/geoprocessor/commit/42e5ad39b35be8fb86bf4078e6ec54c5ea6d55bf))
+
+## [9.0.3](https://github.com/linz/geoprocessor/compare/v9.0.2...v9.0.3) (2026-09-30)
+
+
+### Bug Fixes
+
+* raise clear error when intermediate files disappear TDE-2099 ([#1665](https://github.com/linz/geoprocessor/issues/1665)) ([0fb3b3a](https://github.com/linz/geoprocessor/commit/0fb3b3aec7457b73e37978d83c3d447da839345d))
+
+
+### Reverts
+
+* "revert: "fix: stream file copies to allow outputs over 5GB TDE-2072" TDE-2090" ([#1663](https://github.com/linz/geoprocessor/issues/1663)) ([c546acd](https://github.com/linz/geoprocessor/commit/c546acde61d17b3eb5394e49fef4548c9cfff083))
+
+## [9.0.2](https://github.com/linz/geoprocessor/compare/v9.0.1...v9.0.2) (2026-09-25)
+
+
+### Reverts
+
+* "fix: stream file copies to allow outputs over 5GB TDE-2072" ([#1660](https://github.com/linz/geoprocessor/issues/1660)) ([ce6e399](https://github.com/linz/geoprocessor/commit/ce6e399e62527188932a3c134ef76725edff5127))
+
 ## [9.0.1](https://github.com/linz/geoprocessor/compare/v9.0.0...v9.0.1) (2026-09-23)
 
 

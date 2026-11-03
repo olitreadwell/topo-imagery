@@ -1,4 +1,6 @@
 import json
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from typing import Any, TypedDict
 
 from geoprocessor_common.files.fs import read
@@ -10,10 +12,14 @@ from geoprocessor_stac.util.stac_extensions import StacExtensions
 
 STACAsset = TypedDict("STACAsset", {"href": str, "file:checksum": str, "created": str, "updated": str})
 
-STACProcessingSoftwareGdal = TypedDict("STACProcessingSoftwareGdal", {"gdal": str, "linz/topo-imagery": str})
+STACProcessingSoftwareGdal = TypedDict(
+    "STACProcessingSoftwareGdal", {"gdal": str, "geoprocessor-raster": str, "linz/geoprocessor": str}
+)
 """STAC Processing extension LINZ specific fields for a raster asset produced by GDAL"""
 
-STACProcessingSoftwarePdal = TypedDict("STACProcessingSoftwarePdal", {"pdal": str, "linz/topo-imagery": str})
+STACProcessingSoftwarePdal = TypedDict(
+    "STACProcessingSoftwarePdal", {"pdal": str, "geoprocessor-pointcloud": str, "linz/geoprocessor": str}
+)
 """STAC Processing extension LINZ specific fields for a point cloud asset produced by PDAL"""
 
 type STACProcessingSoftware = STACProcessingSoftwareGdal | STACProcessingSoftwarePdal
@@ -21,6 +27,21 @@ type STACProcessingSoftware = STACProcessingSoftwareGdal | STACProcessingSoftwar
 optional fields: a raster Item carries `gdal` and a point cloud Item carries `pdal`, never both
 and never neither.
 """
+
+
+@dataclass(frozen=True)
+class STACProcessingPackage(ABC):
+    """The software that produced an asset, and the geoprocessor package that ran it."""
+
+    software_version: str
+    """version of the external software used by geoprocessor"""
+    package_version: str
+    """version of the geoprocessor package that ran the software"""
+
+    @abstractmethod
+    def to_stac_software(self, commit_url: str) -> STACProcessingSoftware:
+        """The `processing:software` fields, with `commit_url` as the `linz/geoprocessor` version."""
+
 
 STACProcessing = TypedDict(
     "STACProcessing",
@@ -81,6 +102,8 @@ class ImageryItem:
             properties.processing:software
             properties.processing:version
 
+        Also adds the Processing Extension reference to stac_extensions if missing.
+
         Args:
             file_content_checksum (str): the new checksum
             stac_processing_data (STACProcessing): new data for the STAC processing extension attributes for this asset/item
@@ -89,6 +112,14 @@ class ImageryItem:
             self.stac["assets"]["visual"]["file:checksum"] = file_content_checksum
             self.stac["assets"]["visual"]["updated"] = stac_processing_data["processing:datetime"]
             self.stac["properties"].update(stac_processing_data)
+            self.stac["properties"]["updated"] = stac_processing_data["processing:datetime"]
+
+        if (
+            any(key.startswith("processing:") for key in self.stac["properties"])
+            and StacExtensions.processing.value not in self.stac["stac_extensions"]
+        ):
+            # update the item updated date
+            self.stac["stac_extensions"].append(StacExtensions.processing.value)
             self.stac["properties"]["updated"] = stac_processing_data["processing:datetime"]
 
     def update_datetime(self, start_datetime: str, end_datetime: str) -> None:

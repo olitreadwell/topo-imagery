@@ -1,10 +1,10 @@
 [build-system]
-requires = ["uv_build>=0.11.14,<0.12.0"]
+requires = ["uv_build>=0.11.14,<0.14.0"]
 build-backend = "uv_build"
 
 [project]
-name = "topo-imagery"
-version = "9.0.1"
+name = "geoprocessor"
+version = "10.1.1"
 description = "A collection of scripts for processing geospatial datasets"
 authors = [
     { name = "Blayne Chard", email = "bchard@linz.govt.nz" },
@@ -18,7 +18,7 @@ dependencies = [
     "boto3",
     "geoprocessor-pointcloud",
     "geoprocessor-raster",
-    "linz-logger",
+    "linz-logger>=0.13.1",
     "shapely>=2.0",
 ]
 
@@ -50,6 +50,8 @@ pythonpath = [
 ]
 
 [tool.uv]
+# Minimum only: Dependabot runs its own bundled uv and refuses exact pins; CI pins uv in format-tests.yml
+required-version = ">=0.13.5"
 package = false
 default-groups = "all"
 
