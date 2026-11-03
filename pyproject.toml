@@ -1,11 +1,11 @@
 [build-system]
-requires = ["uv_build>=0.11.14,<0.12.0"]
+requires = ["uv_build>=0.11.14,<0.14.0"]
 build-backend = "uv_build"
 
 [project]
-name = "topo-imagery"
-version = "7.24.0"
-description = "A collection of scripts for processing imagery"
+name = "geoprocessor"
+version = "10.1.1"
+description = "A collection of scripts for processing geospatial datasets"
 authors = [
     { name = "Blayne Chard", email = "bchard@linz.govt.nz" },
     { name = "Daniel Silk", email = "dsilk@linz.govt.nz" },
@@ -16,12 +16,10 @@ authors = [
 requires-python = "~=3.12.3"
 dependencies = [
     "boto3",
-    "linz-logger",
+    "geoprocessor-pointcloud",
+    "geoprocessor-raster",
+    "linz-logger>=0.13.1",
     "shapely>=2.0",
-    "topo-imagery-common",
-    "topo-imagery-gdal",
-    "topo-imagery-pdal",
-    "topo-imagery-stac",
 ]
 
 [dependency-groups]
@@ -43,15 +41,23 @@ dev = [
 [tool.black]
 line-length = 127
 
+[tool.pytest.ini_options]
+pythonpath = [
+    "packages/geoprocessor-common/test",
+    "packages/geoprocessor-gdal/test",
+    "packages/geoprocessor-pdal/test",
+    "packages/geoprocessor-stac/test",
+]
+
 [tool.uv]
+# Minimum only: Dependabot runs its own bundled uv and refuses exact pins; CI pins uv in format-tests.yml
+required-version = ">=0.13.5"
 package = false
 default-groups = "all"
 
 [tool.uv.sources]
-topo-imagery-common = { workspace = true }
-topo-imagery-gdal = { workspace = true }
-topo-imagery-pdal = { workspace = true }
-topo-imagery-stac = { workspace = true }
+geoprocessor-pointcloud = { workspace = true }
+geoprocessor-raster = { workspace = true }
 
 [tool.uv.workspace]
 members = ["packages/*"]

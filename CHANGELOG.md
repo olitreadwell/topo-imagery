@@ -1,5 +1,97 @@
 # Changelog
 
+## [10.1.1](https://github.com/linz/geoprocessor/compare/v10.1.0...v10.1.1) (2026-10-20)
+
+
+### Bug Fixes
+
+* extension reference missing on update TDE-2118 ([#1687](https://github.com/linz/geoprocessor/issues/1687)) ([c6e7fac](https://github.com/linz/geoprocessor/commit/c6e7fac4ee9b776e2e8e821baf7c96fe862cec8d))
+
+## [10.1.0](https://github.com/linz/geoprocessor/compare/v10.0.0...v10.1.0) (2026-10-13)
+
+
+### Features
+
+* rescale 16-bit sources to 8-bit with the webp preset TDE-2106 ([#1683](https://github.com/linz/geoprocessor/issues/1683)) ([27293c7](https://github.com/linz/geoprocessor/commit/27293c71ec5009b2b0e8713166c9486ace0e8171))
+
+
+### Bug Fixes
+
+* replace mutually exclusive arguments with validation TDE-2117 ([#1684](https://github.com/linz/geoprocessor/issues/1684)) ([5e76e31](https://github.com/linz/geoprocessor/commit/5e76e31b523c9b8492bee8f4f387c04a77fcf7af))
+
+## [10.0.0](https://github.com/linz/geoprocessor/compare/v9.0.3...v10.0.0) (2026-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename topo-imagery repo, project and container TDE-2073 TDE-2008 ([#1655](https://github.com/linz/geoprocessor/issues/1655))
+
+### Code Refactoring
+
+* rename topo-imagery repo, project and container TDE-2073 TDE-2008 ([#1655](https://github.com/linz/geoprocessor/issues/1655)) ([42e5ad3](https://github.com/linz/geoprocessor/commit/42e5ad39b35be8fb86bf4078e6ec54c5ea6d55bf))
+
+## [9.0.3](https://github.com/linz/geoprocessor/compare/v9.0.2...v9.0.3) (2026-09-30)
+
+
+### Bug Fixes
+
+* raise clear error when intermediate files disappear TDE-2099 ([#1665](https://github.com/linz/geoprocessor/issues/1665)) ([0fb3b3a](https://github.com/linz/geoprocessor/commit/0fb3b3aec7457b73e37978d83c3d447da839345d))
+
+
+### Reverts
+
+* "revert: "fix: stream file copies to allow outputs over 5GB TDE-2072" TDE-2090" ([#1663](https://github.com/linz/geoprocessor/issues/1663)) ([c546acd](https://github.com/linz/geoprocessor/commit/c546acde61d17b3eb5394e49fef4548c9cfff083))
+
+## [9.0.2](https://github.com/linz/geoprocessor/compare/v9.0.1...v9.0.2) (2026-09-25)
+
+
+### Reverts
+
+* "fix: stream file copies to allow outputs over 5GB TDE-2072" ([#1660](https://github.com/linz/geoprocessor/issues/1660)) ([ce6e399](https://github.com/linz/geoprocessor/commit/ce6e399e62527188932a3c134ef76725edff5127))
+
+## [9.0.1](https://github.com/linz/geoprocessor/compare/v9.0.0...v9.0.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* stream file copies to allow outputs over 5GB TDE-2072 ([#1653](https://github.com/linz/geoprocessor/issues/1653)) ([3a555d6](https://github.com/linz/geoprocessor/commit/3a555d6cc9dc1565c0d1c8f66ec1ced150bb2b1e))
+
+## [9.0.0](https://github.com/linz/topo-imagery/compare/v8.0.0...v9.0.0) (2026-09-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* move top level scripts and add to project.scripts TDE-1981 ([#1622](https://github.com/linz/topo-imagery/issues/1622))
+
+### Features
+
+* publish pointcloud and raster container TDE-1921 ([#1637](https://github.com/linz/topo-imagery/issues/1637)) ([b745a5c](https://github.com/linz/topo-imagery/commit/b745a5c794ba078673476c367504d8056d69e805))
+* tini init container entrypoint ([#1651](https://github.com/linz/topo-imagery/issues/1651)) ([2c976e4](https://github.com/linz/topo-imagery/commit/2c976e41bb6a3719a9f5ecaa062a2d3d53e2d56c))
+
+
+### Bug Fixes
+
+* use NoSuchFileError consistently TDE-2057 ([#1638](https://github.com/linz/topo-imagery/issues/1638)) ([11cdf06](https://github.com/linz/topo-imagery/commit/11cdf0601aef1ae378758d9cd8b6ceb63d8a78aa))
+
+
+### Code Refactoring
+
+* move top level scripts and add to project.scripts TDE-1981 ([#1622](https://github.com/linz/topo-imagery/issues/1622)) ([06a0f6c](https://github.com/linz/topo-imagery/commit/06a0f6c418213abb97eded0d5faae7f4a5707243))
+
+## [8.0.0](https://github.com/linz/topo-imagery/compare/v7.24.0...v8.0.0) (2026-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* add data type to STAC collection metadata TDE-2004 ([#1643](https://github.com/linz/topo-imagery/issues/1643))
+* use data-type parameter to determine BIGTIFF option TDE-2034 ([#1641](https://github.com/linz/topo-imagery/issues/1641))
+
+### Features
+
+* add data type to STAC collection metadata TDE-2004 ([#1643](https://github.com/linz/topo-imagery/issues/1643)) ([5b3c7cb](https://github.com/linz/topo-imagery/commit/5b3c7cbd8197dcb1006b4d9889b43d30a27d7148))
+* topo imagery write bigtiff for 16 32 bit rgbnir imagery TDE-2005 ([#1607](https://github.com/linz/topo-imagery/issues/1607)) ([ea4a6bc](https://github.com/linz/topo-imagery/commit/ea4a6bc464d8d3ea67f6b53625a2a37ce8869b25))
+* use data-type parameter to determine BIGTIFF option TDE-2034 ([#1641](https://github.com/linz/topo-imagery/issues/1641)) ([2f72bf4](https://github.com/linz/topo-imagery/commit/2f72bf4ca95eab2064cd13af24d178c0dc572c50))
+
 ## [7.24.0](https://github.com/linz/topo-imagery/compare/v7.23.0...v7.24.0) (2026-08-18)
 
 

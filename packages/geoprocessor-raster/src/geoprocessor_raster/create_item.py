@@ -1,0 +1,72 @@
+from dataclasses import dataclass
+from importlib.metadata import version
+
+from geoprocessor_gdal.gdal.gdal_helper import gdal_info
+from geoprocessor_gdal.gdal.gdalinfo import GdalInfo
+from geoprocessor_gdal.tiff.geotiff import get_extents
+from geoprocessor_stac.imagery.create_stac import create_item
+from geoprocessor_stac.imagery.item import ImageryItem, STACProcessingPackage, STACProcessingSoftwareGdal
+
+
+@dataclass(frozen=True)
+class GdalProcessingPackage(STACProcessingPackage):
+    """GDAL, run by geoprocessor-raster."""
+
+    def to_stac_software(self, commit_url: str) -> STACProcessingSoftwareGdal:
+        return STACProcessingSoftwareGdal(
+            **{
+                "gdal": self.software_version,
+                "geoprocessor-raster": self.package_version,
+                "linz/geoprocessor": commit_url,
+            }
+        )
+
+
+# pylint: disable=too-many-arguments
+# pylint: disable=too-many-positional-arguments
+def create_item_from_tiff(
+    asset_path: str,
+    start_datetime: str,
+    end_datetime: str,
+    collection_id: str,
+    gdal_version: str,
+    current_datetime: str,
+    gdalinfo_result: GdalInfo | None = None,
+    derived_from: list[str] | None = None,
+    odr_url: str | None = None,
+    asset_checksum: str | None = None,
+) -> ImageryItem:
+    """Create an ImageryItem (STAC) for a TIFF, deriving its spatial extents with GDAL.
+
+    Args:
+        asset_path: path of the visual asset (TIFF)
+        start_datetime: start date of the survey
+        end_datetime: end date of the survey
+        collection_id: collection id to link to the Item
+        gdal_version: GDAL version
+        current_datetime: date and time for setting consistent update and/or creation timestamp
+        gdalinfo_result: result of the gdalinfo command. Defaults to None.
+        derived_from: list of STAC Items from where this Item is derived. Defaults to None.
+        odr_url: S3 URL of the already published files in ODR (if this is a resupply). Defaults to None.
+        asset_checksum: multihash of the asset, if it has already been computed. Defaults to None = compute it.
+
+    Returns:
+        a STAC Item wrapped in ImageryItem
+    """
+    if not gdalinfo_result:
+        gdalinfo_result = gdal_info(asset_path)
+    geometry, bbox = get_extents(gdalinfo_result)
+
+    return create_item(
+        asset_path,
+        start_datetime,
+        end_datetime,
+        collection_id,
+        GdalProcessingPackage(gdal_version, version("geoprocessor-raster")),
+        current_datetime,
+        geometry,
+        bbox,
+        derived_from=derived_from,
+        odr_url=odr_url,
+        asset_checksum=asset_checksum,
+    )
